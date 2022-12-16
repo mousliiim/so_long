@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:05:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/16 02:06:47 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/16 04:14:00 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,43 @@ int	ft_checkmaprectangle(t_map *game, size_t len_first_line)
 	return (0);
 }
 
-char	**check_map(char *map, t_map *game)
+char	*ft_read_file(char *map)
 {
-	int		fd;
 	int		readret;
 	char	*tmp;
-	int		i;
-	size_t	len_first_x;
+	char	*buffer;
+	int		fd;
 
+	buffer = malloc(sizeof(char) * 2);
 	tmp = NULL;
-	fd = open(map, O_RDONLY);
 	readret = 1;
-	i = 1;
+	fd = open(map, O_RDONLY);
 	while (readret)
 	{
-		readret = read(fd, map, 1);
-		map[readret] = '\0';
-		tmp = ft_join(tmp, map);
+		readret = read(fd, buffer, 1);
+		buffer[readret] = '\0';
+		tmp = ft_join(tmp, buffer);
 	}
+	free(buffer);
+	return (tmp);
+}
+
+char	**check_map(char *map, t_map *game)
+{
+	char	*tmp;
+	size_t	len_first_x;
+
+	tmp = ft_read_file(map);
 	if (ft_checkspacemap(tmp))
+	{
+		free(tmp);
 		exit(1);
+	}
 	game->map = ft_split(tmp, '\n');
+	free(tmp);
 	len_first_x = ft_strlen(game->map[0]);
 	if (ft_checkmaprectangle(game, len_first_x))
 		exit (1);
-	free(tmp);
 	game->checkmap = 1;
 	return (game->map);
 }
