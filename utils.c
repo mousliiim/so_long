@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 22:25:04 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/16 02:13:30 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/16 22:25:28 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int	ft_msgerror(int error)
 {
 	if (error == 1)
-		ft_printf("\n%sError\n-> Map Invalide !%s\n\n", RED, END);
+	{
+		ft_printf("\n%s\t    Error\n\tMap Invalide !%s\n\n", RED, END);
+		exit(1);
+	}
 	return (0);
 }
 

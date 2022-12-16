@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/16 04:13:21 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/16 22:32:00 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,16 @@ int	main(int argc, char **argv)
 	{
 		ft_check_arg(argv[1], &game);
 		if (game.checkarg == 0)
-			return (ft_printf("./so_long [Your Map .ber]\n"));
-		// ft_printf("CHECK ARG IS %d\n", game.checkarg);
+			return (ft_printf("%s\t    Error\n-> ./so_long [Your Map .ber]%s\n"
+					, RED, END));
 		if (game.checkarg == 1)
+		{
 			check_map(argv[1], &game);
-		if (game.checkmap == 1)
-			ft_printf("\n\nCHECKMAP STRUCT VALUE : %d\n", game.checkmap);
-		//ft_display(game.map);
+			ft_check_border_map(game.map, &game);
+		}
+		ft_display(game.map);
+		ft_freemap(game.map);
 	}
-	ft_freemap(game.map);
+	else if (argc != 2)
+		ft_printf("%s\t    Error\n-> ./so_long [Your Map .ber]%s\n", RED, END);
 }
