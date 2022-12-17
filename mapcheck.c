@@ -6,32 +6,11 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:05:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/16 22:32:19 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/17 22:15:13 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-char	*ft_read_file(char *map)
-{
-	int		readret;
-	char	*tmp;
-	char	*buffer;
-	int		fd;
-
-	buffer = malloc(sizeof(char) * 2);
-	tmp = NULL;
-	readret = 1;
-	fd = open(map, O_RDONLY);
-	while (readret)
-	{
-		readret = read(fd, buffer, 1);
-		buffer[readret] = '\0';
-		tmp = ft_join(tmp, buffer);
-	}
-	free(buffer);
-	return (tmp);
-}
 
 int	ft_checkspacemap(char *tmp)
 {
@@ -42,10 +21,7 @@ int	ft_checkspacemap(char *tmp)
 	{
 		if (tmp[0] == '\n' || (tmp[i] == '\n' && tmp[i + 1] == '\n')
 			|| (i == (int)ft_strlen(tmp) - 1 && tmp[i] == '\n'))
-		{
-			ft_msgerror(1);
 			return (1);
-		}
 		i++;
 	}
 	return (0);
@@ -61,8 +37,8 @@ int	ft_checkmaprectangle(t_map *game, size_t len_first_line)
 		if (ft_strlen(game->map[i]) < len_first_line
 			|| ft_strlen(game->map[i]) > len_first_line)
 		{
+			ft_freemap(game->map);
 			ft_msgerror(1);
-			return (1);
 		}
 		i++;
 	}
@@ -74,11 +50,14 @@ char	**check_map(char *map, t_map *game)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	tmp = ft_read_file(map);
+	if (!tmp)
+		ft_msgerror(1);
 	if (ft_checkspacemap(tmp))
 	{
 		free(tmp);
-		exit(1);
+		ft_msgerror(1);
 	}
 	game->map = ft_split(tmp, '\n');
 	free(tmp);
@@ -116,5 +95,25 @@ int	ft_check_border_map(char **map, t_map *game)
 		}
 		y++;
 	}
-	return (0);
+	return (1);
+}
+
+void	ft_check_content_map(char **map, t_map *game)
+{
+	int	y;
+	int	x;
+
+	x = 0;
+	y = 1;
+	while (map[y])
+	{
+		x = 0;
+		ft_content_condition(map, game, x, y);
+		y++;
+	}
+	if (game->map_e != 1 || game->map_p != 1 || game->coin <= 0)
+	{
+		ft_freemap(game->map);
+		ft_msgerror(1);
+	}
 }

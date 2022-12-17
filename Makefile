@@ -29,7 +29,7 @@ MLX_FLAGS		=	-lm -lmlx -lXext -lX11
 
 HEAD			=	-I includes
 
-CFLAGS			=	-Wall -Werror -Wextra -g
+CFLAGS			=	-Wall -Werror -Wextra -g3
 
 all				:	${NAME}
 

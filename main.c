@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/16 22:32:00 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/17 03:09:21 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void	ft_freemap(char **map)
 	free(map);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
-	t_map	game;
+	static t_map	game = {0};
 
+	if (!env || !*env)
+		return (0);
 	if (argc == 2)
 	{
 		ft_check_arg(argv[1], &game);
@@ -57,6 +59,7 @@ int	main(int argc, char **argv)
 		{
 			check_map(argv[1], &game);
 			ft_check_border_map(game.map, &game);
+			ft_check_content_map(game.map, &game);
 		}
 		ft_display(game.map);
 		ft_freemap(game.map);
