@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/17 03:09:21 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/18 23:07:28 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,12 @@
 
 int	ft_check_arg(char *maparg, t_map *game)
 {
-	if (!(ft_strcmp(maparg + (ft_strlen(maparg)- 4), ".ber") == 0))
+	if (!(ft_strcmp(maparg + (ft_strlen(maparg) - 4), ".ber") == 0))
 		return (game->checkarg = 0);
 	else if (ft_strcmp(maparg, ".ber") == 0)
 		return (game->checkarg = 0);
 	else
 		return (game->checkarg = 1);
-}
-
-void	ft_display(char **tab)
-{
-	int	i;
-
-	i = -1;
-	printf("\n\n");
-	while (tab[++i])
-		ft_printf("%s\n", tab[i]);
-	printf("\n\n");
 }
 
 void	ft_freemap(char **map)
@@ -53,15 +42,10 @@ int	main(int argc, char **argv, char **env)
 	{
 		ft_check_arg(argv[1], &game);
 		if (game.checkarg == 0)
-			return (ft_printf("%s\t    Error\n-> ./so_long [Your Map .ber]%s\n"
-					, RED, END));
+			return (ft_printf("%s\t    Error\n-> ./so_long [Your Map .ber]%s\n",
+					RED, END));
 		if (game.checkarg == 1)
-		{
 			check_map(argv[1], &game);
-			ft_check_border_map(game.map, &game);
-			ft_check_content_map(game.map, &game);
-		}
-		ft_display(game.map);
 		ft_freemap(game.map);
 	}
 	else if (argc != 2)

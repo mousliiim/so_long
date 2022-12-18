@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:49:32 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/17 22:16:07 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:59:19 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,25 @@ typedef struct s_map
 	int		exit[2];
 }	t_map;
 
+typedef struct s_mapfind
+{
+	char	**map;
+	int		start2[2];
+}	t_mapfind;
+
 int		ft_msgerror(int error);
 char	*ft_join(char *buffer, char *str);
 char	*ft_read_file(char *map);
 int		ft_checkspacemap(char *tmp);
 int		ft_checkmaprectangle(t_map *game, size_t len_first_line);
 void	ft_freemap(char **map);
-int		ft_check_border_map(char **map, t_map *game);
+void	ft_check_border_map(char **map, t_map *game);
 char	**check_map(char *map, t_map *game);
 void	ft_display(char **tab);
 void	ft_check_content_map(char **map, t_map *game);
 void	ft_content_condition(char **map, t_map *game, int x, int y);
+int		ft_pathfind(t_map *game, int pox, int poy, int *count);
+void	ft_pathvalid(t_map *game);
+int		ft_check_if_exit(t_map *game);
 
 #endif

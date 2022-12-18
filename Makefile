@@ -6,7 +6,7 @@ LIBFT			=	includes/libft/libft.a
 
 PRINTF			=	includes/ft_printf/libftprintf.a
 
-SRCS			=	main.c utils.c mapcheck.c
+SRCS			=	main.c utils.c mapcheck.c pathfinding.c
 
 # Colors
 DEF_COLOR = \033[0;39m
@@ -29,7 +29,7 @@ MLX_FLAGS		=	-lm -lmlx -lXext -lX11
 
 HEAD			=	-I includes
 
-CFLAGS			=	-Wall -Werror -Wextra -g3
+CFLAGS			=	-Wall -Werror -Wextra -g
 
 all				:	${NAME}
 

@@ -6,11 +6,31 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 22:25:04 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/17 22:15:30 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:22:51 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_check_content_map(char **map, t_map *game)
+{
+	int	y;
+	int	x;
+
+	x = 0;
+	y = 1;
+	while (map[y])
+	{
+		x = 0;
+		ft_content_condition(map, game, x, y);
+		y++;
+	}
+	if (game->map_e != 1 || game->map_p != 1 || game->coin <= 0)
+	{
+		ft_freemap(game->map);
+		ft_msgerror(1);
+	}
+}
 
 void	ft_content_condition(char **map, t_map *game, int x, int y)
 {
@@ -106,4 +126,15 @@ char	*ft_join(char *buffer, char *str)
 	mstr[i] = '\0';
 	free(buffer);
 	return (mstr);
+}
+
+void	ft_display(char **tab)
+{
+	int	i;
+
+	i = -1;
+	printf("\n\n");
+	while (tab[++i])
+		ft_printf("%s\n", tab[i]);
+	printf("\n\n");
 }

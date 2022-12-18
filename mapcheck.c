@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:05:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/17 22:15:13 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/18 23:07:21 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,7 @@ int	ft_checkmaprectangle(t_map *game, size_t len_first_line)
 	return (0);
 }
 
-char	**check_map(char *map, t_map *game)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	tmp = ft_read_file(map);
-	if (!tmp)
-		ft_msgerror(1);
-	if (ft_checkspacemap(tmp))
-	{
-		free(tmp);
-		ft_msgerror(1);
-	}
-	game->map = ft_split(tmp, '\n');
-	free(tmp);
-	game->size_x = ft_strlen(game->map[0]);
-	if (ft_checkmaprectangle(game, game->size_x))
-	{
-		ft_freemap(game->map);
-		exit (1);
-	}
-	game->checkmap = 1;
-	return (game->map);
-}
-
-int	ft_check_border_map(char **map, t_map *game)
+void	ft_check_border_map(char **map, t_map *game)
 {
 	int	y;
 	int	x;
@@ -95,25 +70,32 @@ int	ft_check_border_map(char **map, t_map *game)
 		}
 		y++;
 	}
-	return (1);
 }
 
-void	ft_check_content_map(char **map, t_map *game)
+char	**check_map(char *map, t_map *game)
 {
-	int	y;
-	int	x;
+	char	*tmp;
 
-	x = 0;
-	y = 1;
-	while (map[y])
+	tmp = NULL;
+	tmp = ft_read_file(map);
+	if (!tmp)
+		ft_msgerror(1);
+	if (ft_checkspacemap(tmp))
 	{
-		x = 0;
-		ft_content_condition(map, game, x, y);
-		y++;
-	}
-	if (game->map_e != 1 || game->map_p != 1 || game->coin <= 0)
-	{
-		ft_freemap(game->map);
+		free(tmp);
 		ft_msgerror(1);
 	}
+	game->map = ft_split(tmp, '\n');
+	free(tmp);
+	game->size_x = ft_strlen(game->map[0]);
+	if (ft_checkmaprectangle(game, game->size_x))
+	{
+		ft_freemap(game->map);
+		exit (1);
+	}
+	game->checkmap = 1;
+	ft_check_border_map(game->map, game);
+	ft_check_content_map(game->map, game);
+	ft_pathvalid(game);
+	return (game->map);
 }
