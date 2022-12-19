@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:05:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/18 23:07:21 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:37:34 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,32 +46,6 @@ int	ft_checkmaprectangle(t_map *game, size_t len_first_line)
 	return (0);
 }
 
-void	ft_check_border_map(char **map, t_map *game)
-{
-	int	y;
-	int	x;
-
-	x = 0;
-	y = 0;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (!(map[0][x] == '1') ||
-				!(map[y][game->size_x - 1] == '1') ||
-				!(map[game->size_y - 1][x] == '1') ||
-				!(map[y][0] == '1'))
-			{
-				ft_freemap(game->map);
-				ft_msgerror(1);
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
 char	**check_map(char *map, t_map *game)
 {
 	char	*tmp;
@@ -96,6 +70,31 @@ char	**check_map(char *map, t_map *game)
 	game->checkmap = 1;
 	ft_check_border_map(game->map, game);
 	ft_check_content_map(game->map, game);
-	ft_pathvalid(game);
 	return (game->map);
+}
+
+void	ft_check_border_map(char **map, t_map *game)
+{
+	int	y;
+	int	x;
+
+	x = 0;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (!(map[0][x] == '1') ||
+				!(map[y][game->size_x - 1] == '1') ||
+				!(map[game->size_y - 1][x] == '1') ||
+				!(map[y][0] == '1'))
+			{
+				ft_freemap(game->map);
+				ft_msgerror(1);
+			}
+			x++;
+		}
+		y++;
+	}
 }

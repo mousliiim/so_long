@@ -6,7 +6,7 @@ LIBFT			=	includes/libft/libft.a
 
 PRINTF			=	includes/ft_printf/libftprintf.a
 
-SRCS			=	main.c utils.c mapcheck.c pathfinding.c
+SRCS			=	main.c utils.c mapcheck.c ft_pathfinding_rtbl.c pathfinding.c
 
 # Colors
 DEF_COLOR = \033[0;39m

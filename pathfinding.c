@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:21:39 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/18 22:57:07 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:51:44 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_pathfind(t_map *game, int pox, int poy, int *count)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 1;
@@ -24,41 +24,13 @@ int	ft_pathfind(t_map *game, int pox, int poy, int *count)
 		x = 1;
 		while (game->map[y][x] && x < (int)game->size_x - 1)
 		{
-			if (game->map[poy][pox + 1] == '0' ||
-				game->map[poy][pox + 1] == 'C' ||
-				game->map[poy][pox + 1] == 'E')
-			{
-				game->map[poy][pox + 1] = 'X';
-				if (game->map[poy][pox + 1] == 'X')
-					(*count)++;
-			}
-			if (game->map[poy - 1][pox] == '0' ||
-				game->map[poy - 1][pox] == 'C' ||
-				game->map[poy - 1][pox] == 'E')
-			{
-				game->map[poy - 1][pox] = 'X';
-				if (game->map[poy - 1][pox] == 'X')
-					(*count)++;
-			}
-			if (game->map[poy + 1][pox] == '0' ||
-				game->map[poy + 1][pox] == 'C' ||
-				game->map[poy + 1][pox] == 'E')
-			{
-				game->map[poy + 1][pox] = 'X';
-				if (game->map[poy + 1][pox] == 'X')
-					(*count)++;
-			}
-			if (game->map[poy][pox - 1] == '0' ||
-				game->map[poy][pox - 1] == 'C' ||
-				game->map[poy][pox - 1] == 'E')
-			{
-				game->map[poy][pox - 1] = 'X';
-				if (game->map[poy][pox - 1] == 'X')
-					(*count)++;
-			}
-		x++;
+			ft_check_path_right(game, pox, poy, count);
+			ft_check_path_top(game, pox, poy, count);
+			ft_check_path_bottom(game, pox, poy, count);
+			ft_check_path_left(game, pox, poy, count);
+			x++;
 		}
-	y++;
+		y++;
 	}
 	return (1);
 }
@@ -68,7 +40,7 @@ void	ft_beforepathfind(t_map *game, int pox, int poy, int *count)
 	int	pos_x;
 	int	pos_y;
 
-	sleep(1);
+	// sleep(1);
 	pox = 0;
 	poy = 0;
 	pos_x = game->start[1];
@@ -80,12 +52,12 @@ void	ft_beforepathfind(t_map *game, int pox, int poy, int *count)
 		while (pox < (int)game->size_x)
 		{
 			if (game->map[poy][pox] == 'X')
-				ft_pathfind(game, pox, poy,  count);
+				ft_pathfind(game, pox, poy, count);
 			pox++;
 		}
 		poy++;
 	}
-	ft_display(game->map);
+	// ft_display(game->map);
 }
 
 int	ft_check_if_exit(t_map *game)
@@ -102,16 +74,34 @@ int	ft_check_if_exit(t_map *game)
 		{
 			if (game->map[y][x] == 'E' || game->map[y][x] == 'C')
 				return (1);
-		x++;
+			x++;
 		}
 		y++;
 	}
 	return (0);
 }
 
-void	ft_pathvalid(t_map *game)
+void	ft_finalmap(t_map *game, char *mapname)
 {
-	int		count;
+	ft_freemap(game->map);
+	game->map = NULL;
+	game->size_x = 0;
+	game->size_y = 0;
+	game->checkarg = 0;
+	game->checkmap = 0;
+	game->coin = 0;
+	game->map_e = 0;
+	game->map_p = 0;
+	game->start[0] = 0;
+	game->start[1] = 0;
+	game->exit[0] = 0;
+	game->exit[1] = 0;
+	check_map(mapname, game);
+}
+
+void	ft_pathvalid(t_map *game, char *mapname)
+{
+	int	count;
 
 	count = 1;
 	while (ft_check_if_exit(game) && count != 0)
@@ -122,8 +112,7 @@ void	ft_pathvalid(t_map *game)
 	if (ft_check_if_exit(game) && count == 0)
 	{
 		ft_freemap(game->map);
-		ft_msgerror(1);
+		ft_msgerror(2);
 	}
-	else if (count == 1)
-		ft_printf("%s\n\t    MAP VALIDE ..%s\n\n", GREEN, END);
+	ft_finalmap(game, mapname);
 }

@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:49:32 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/18 22:59:19 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/19 01:46:20 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,12 @@ void	ft_display(char **tab);
 void	ft_check_content_map(char **map, t_map *game);
 void	ft_content_condition(char **map, t_map *game, int x, int y);
 int		ft_pathfind(t_map *game, int pox, int poy, int *count);
-void	ft_pathvalid(t_map *game);
+void	ft_pathvalid(t_map *game, char *mapname);
 int		ft_check_if_exit(t_map *game);
+void	ft_check_path_right(t_map *game, int pox, int poy, int *count);
+void	ft_check_path_top(t_map *game, int pox, int poy, int *count);
+void	ft_check_path_bottom(t_map *game, int pox, int poy, int *count);
+void	ft_check_path_left(t_map *game, int pox, int poy, int *count);
+void	ft_finalmap(t_map *game, char *mapname);
 
 #endif

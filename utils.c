@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 22:25:04 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/18 22:22:51 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/19 00:58:48 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,12 @@ int	ft_msgerror(int error)
 	if (error == 1)
 	{
 		ft_printf("\n%s\t    Error\n\tMap Invalide !%s\n\n", RED, END);
+		exit (1);
+	}
+	if (error == 2)
+	{
+		ft_printf("\n%s\t\t Error\n", RED);
+		ft_printf("  Sortie ou Collectible non atteignable !%s\n\n", END);
 		exit (1);
 	}
 	return (0);
