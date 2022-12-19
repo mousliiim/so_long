@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:49:32 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/19 01:46:20 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/19 02:47:30 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # define RED "\033[0;31m"
 # define END "\033[0m"
 
-# define PEC01 "pec01"
-
 typedef struct s_map
 {
 	char	**map;
@@ -38,11 +36,14 @@ typedef struct s_map
 	int		exit[2];
 }	t_map;
 
-typedef struct s_mapfind
+typedef struct s_startmlx
 {
 	char	**map;
-	int		start2[2];
-}	t_mapfind;
+	void	*mlx;
+	void	*size_win;
+	void	*img;
+	int		step;
+}	t_startmlx;
 
 int		ft_msgerror(int error);
 char	*ft_join(char *buffer, char *str);
@@ -63,5 +64,6 @@ void	ft_check_path_top(t_map *game, int pox, int poy, int *count);
 void	ft_check_path_bottom(t_map *game, int pox, int poy, int *count);
 void	ft_check_path_left(t_map *game, int pox, int poy, int *count);
 void	ft_finalmap(t_map *game, char *mapname);
+void	ft_startgame(t_startmlx *gplay, t_map *game);
 
 #endif
