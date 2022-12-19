@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:49:32 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/19 02:47:30 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/19 04:12:06 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_startmlx
 	char	**map;
 	void	*mlx;
 	void	*size_win;
-	void	*img;
+	void	*img[256];
 	int		step;
 }	t_startmlx;
 
