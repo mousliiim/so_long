@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:21:39 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/19 02:03:52 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/20 04:21:53 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,24 @@ int	ft_check_if_exit(t_map *game)
 	return (0);
 }
 
-void	ft_finalmap(t_map *game, char *mapname)
+void	ft_swapstruct(t_map *game, t_startmlx *gplay)
+{
+	gplay->map = game->map;
+	gplay->size_x = game->size_x;
+	gplay->size_y = game->size_y;
+	gplay->coin = game->coin;
+	gplay->start[0] = game->start[0];
+	gplay->start[1] = game->start[1];
+	gplay->exit[0] = game->exit[0];
+	gplay->exit[1] = game->exit[1];
+}
+
+void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay)
 {
 	ft_freemap(game->map);
 	game->map = NULL;
 	game->size_x = 0;
 	game->size_y = 0;
-	game->checkarg = 0;
 	game->checkmap = 0;
 	game->coin = 0;
 	game->map_e = 0;
@@ -97,9 +108,13 @@ void	ft_finalmap(t_map *game, char *mapname)
 	game->exit[0] = 0;
 	game->exit[1] = 0;
 	check_map(mapname, game);
+	ft_swapstruct(game, gplay);
+	gplay->mlx = mlx_init();
+	gplay->mlx_win = mlx_new_window(gplay->mlx, game->size_x * 64, game->size_y * 64, "so_long");
+	ft_tab_fill_xpm(gplay);
 }
 
-void	ft_pathvalid(t_map *game, char *mapname)
+void	ft_pathvalid(t_map *game, char *mapname, t_startmlx *gplay)
 {
 	int	count;
 
@@ -114,5 +129,5 @@ void	ft_pathvalid(t_map *game, char *mapname)
 		ft_freemap(game->map);
 		ft_msgerror(2);
 	}
-	ft_finalmap(game, mapname);
+	ft_finalmap(game, mapname, gplay);
 }
