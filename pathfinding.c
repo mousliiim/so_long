@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:21:39 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/20 04:21:53 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/20 20:58:23 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_beforepathfind(t_map *game, int pox, int poy, int *count)
 	int	pos_x;
 	int	pos_y;
 
-	// sleep(1);
+	sleep(1);
 	pox = 0;
 	poy = 0;
 	pos_x = game->start[1];
@@ -57,7 +57,7 @@ void	ft_beforepathfind(t_map *game, int pox, int poy, int *count)
 		}
 		poy++;
 	}
-	// ft_display(game->map);
+	ft_display(game->map);
 }
 
 int	ft_check_if_exit(t_map *game)
@@ -110,7 +110,12 @@ void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay)
 	check_map(mapname, game);
 	ft_swapstruct(game, gplay);
 	gplay->mlx = mlx_init();
-	gplay->mlx_win = mlx_new_window(gplay->mlx, game->size_x * 64, game->size_y * 64, "so_long");
+	if (!gplay->mlx)
+		exit(0);
+	gplay->mlx_win = mlx_new_window(gplay->mlx, game->size_x * 64,
+			game->size_y * 64, "so_long");
+	if (!gplay->mlx_win)
+		exit(0);
 	ft_tab_fill_xpm(gplay);
 }
 

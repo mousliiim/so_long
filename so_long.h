@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:49:32 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/20 04:15:53 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/20 21:21:27 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_startmlx
 	char	**map;
 	void	*mlx;
 	void	*mlx_win;
-	void	*img[256];
+	void	*img[5];
 	size_t	size_x;
 	size_t	size_y;
 	int		step;
@@ -79,5 +79,8 @@ void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay);
 void	ft_fillmap(t_startmlx *gplay);
 void	ft_tab_fill_xpm(t_startmlx *gplay);
 int		deal_key(int keysym, t_startmlx *gplay);
+void	ft_swapstruct(t_map *game, t_startmlx *gplay);
+void	ft_empty_struct(t_startmlx *gplay, t_map *game);
+void	ft_empty_t_map(t_map *game);
 
 #endif

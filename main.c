@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/20 05:46:24 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/20 21:20:41 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,56 @@ void	ft_freemap(char **map)
 	free(map);
 }
 
+void	ft_empty_t_map(t_map *game)
+{
+	game->map = NULL;
+	game->size_x = 0;
+	game->size_y = 0;
+	game->checkmap = 0;
+	game->coin = 0;
+	game->map_e = 0;
+	game->map_p = 0;
+	game->start[0] = 0;
+	game->start[1] = 0;
+	game->exit[0] = 0;
+	game->exit[1] = 0;
+}
+
+void	ft_empty_struct(t_startmlx *gplay, t_map *game)
+{
+	free(gplay->mlx);
+	ft_freemap(gplay->map);
+	gplay->map = NULL;
+	gplay->mlx = 0;
+	gplay->mlx_win = 0;
+	gplay->size_x = 0;
+	gplay->size_y = 0;
+	gplay->step = 0;
+	gplay->coin = 0;
+	gplay->start[0] = 0;
+	gplay->start[1] = 0;
+	gplay->exit[0] = 0;
+	gplay->exit[1] = 0;
+	ft_empty_t_map(game);
+}
+
+void	ft_exit(t_startmlx *gplay, t_map *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 5 && gplay->img[i])
+	{
+		mlx_destroy_image(gplay->mlx, gplay->img[i]);
+		gplay->img[i] = 0;
+		i++;
+	}
+	mlx_clear_window(gplay->mlx, gplay->mlx_win);
+	mlx_destroy_window(gplay->mlx, gplay->mlx_win);
+	mlx_destroy_display(gplay->mlx);
+	ft_empty_struct(gplay, game);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	static t_map		game = {0};
@@ -49,7 +99,7 @@ int	main(int argc, char **argv, char **env)
 		ft_fillmap(&gplay);
 		mlx_hook(gplay.mlx_win, KeyPress, KeyPressMask, &deal_key, &gplay);
 		mlx_loop(gplay.mlx);
-		ft_freemap(game.map);
+		ft_exit(&gplay, &game);
 	}
 	else if (argc != 2)
 		ft_printf("%s\t    Error\n-> ./so_long [Your Map .ber]%s\n", RED, END);
