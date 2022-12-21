@@ -1,7 +1,5 @@
 NAME			=	so_long
 
-GNL				=	includes/gnl/get_next_line.c includes/gnl/get_next_line_utils.c
-
 LIBFT			=	includes/libft/libft.a
 
 PRINTF			=	includes/ft_printf/libftprintf.a
@@ -22,8 +20,6 @@ PURPLE= \033[38;2;255;105;180m
 RESET= \033[0m
 
 OBJS			=	${SRCS:.c=.o}
-
-OBJS_GNL		=	${GNL:.c=.o}
 
 MLX_FLAGS		=	-lm -lmlx -lXext -lX11
 
@@ -50,7 +46,7 @@ $(NAME) : $(OBJS) ${OBJS_GNL}
 clean			:
 					make clean -C includes/libft/
 					make clean -C includes/ft_printf/
-					rm -rf ${OBJS} ${OBJS_GNL}
+					rm -rf ${OBJS}
 
 fclean			:	clean
 					make fclean -C includes/libft/

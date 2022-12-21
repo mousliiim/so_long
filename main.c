@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/20 21:20:41 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/21 05:05:46 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_empty_struct(t_startmlx *gplay, t_map *game)
 	gplay->start[1] = 0;
 	gplay->exit[0] = 0;
 	gplay->exit[1] = 0;
+	gplay->nbrimg = 0;
 	ft_empty_t_map(game);
 }
 
@@ -70,7 +71,7 @@ void	ft_exit(t_startmlx *gplay, t_map *game)
 	int	i;
 
 	i = 0;
-	while (i < 5 && gplay->img[i])
+	while (i < gplay->nbrimg && gplay->img[i])
 	{
 		mlx_destroy_image(gplay->mlx, gplay->img[i]);
 		gplay->img[i] = 0;
