@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/21 05:05:46 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/22 03:54:41 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	ft_check_arg(char *maparg)
 {
-	if (!(ft_strcmp(maparg + (ft_strlen(maparg) - 4), ".ber") == 0))
-		return (0);
-	else if (ft_strcmp(maparg, ".ber") == 0)
+	if (!(ft_strcmp(maparg + (ft_strlen(maparg) - 4), ".ber") == 0)
+		|| ft_strcmp(maparg, ".ber") == 0)
 		return (0);
 	else
 		return (1);
@@ -66,23 +65,6 @@ void	ft_empty_struct(t_startmlx *gplay, t_map *game)
 	ft_empty_t_map(game);
 }
 
-void	ft_exit(t_startmlx *gplay, t_map *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < gplay->nbrimg && gplay->img[i])
-	{
-		mlx_destroy_image(gplay->mlx, gplay->img[i]);
-		gplay->img[i] = 0;
-		i++;
-	}
-	mlx_clear_window(gplay->mlx, gplay->mlx_win);
-	mlx_destroy_window(gplay->mlx, gplay->mlx_win);
-	mlx_destroy_display(gplay->mlx);
-	ft_empty_struct(gplay, game);
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	static t_map		game = {0};
@@ -99,6 +81,7 @@ int	main(int argc, char **argv, char **env)
 		ft_pathvalid(&game, argv[1], &gplay);
 		ft_fillmap(&gplay);
 		mlx_hook(gplay.mlx_win, KeyPress, KeyPressMask, &deal_key, &gplay);
+		mlx_hook(gplay.mlx_win, 17, (1L << 17), &close_x, &gplay);
 		mlx_loop(gplay.mlx);
 		ft_exit(&gplay, &game);
 	}

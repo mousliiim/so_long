@@ -6,11 +6,11 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:38:46 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/19 00:00:46 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/22 04:01:52 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 /*
  * Ces fonctions font partie de ft_pathfind, elles vérifie les chemins
@@ -20,6 +20,29 @@
  * incrémente la variable count qui serviras pour savoir si il est encore possib
  * -le d'ecrire des X pour voir si un chemin est possible dans la map.
 */
+
+int	ft_pathfind(t_map *game, int pox, int poy, int *count)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 1;
+	while (y < (int)game->size_y - 1)
+	{
+		x = 1;
+		while (game->map[y][x] && x < (int)game->size_x - 1)
+		{
+			ft_check_path_right(game, pox, poy, count);
+			ft_check_path_top(game, pox, poy, count);
+			ft_check_path_bottom(game, pox, poy, count);
+			ft_check_path_left(game, pox, poy, count);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
 
 void	ft_check_path_right(t_map *game, int pox, int poy, int *count)
 {

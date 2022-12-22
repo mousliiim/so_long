@@ -4,7 +4,8 @@ LIBFT			=	includes/libft/libft.a
 
 PRINTF			=	includes/ft_printf/libftprintf.a
 
-SRCS			=	main.c utils.c mapcheck.c ft_pathfinding_rtbl.c pathfinding.c gamemlx.c
+SRCS			=	main.c miscft/utils.c miscft/mapcheck.c miscft/ft_pathfinding_rtbl.c \
+					miscft/pathfinding.c miscft/move.c miscft/gamemlxutils.c
 
 # Colors
 DEF_COLOR = \033[0;39m

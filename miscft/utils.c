@@ -6,11 +6,11 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 22:25:04 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/20 21:10:05 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/22 04:02:06 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 void	ft_check_content_map(char **map, t_map *game)
 {
@@ -82,7 +82,7 @@ char	*ft_read_file(char *map)
 			return (NULL);
 		}
 		buffer[readret] = '\0';
-		tmp = ft_join(tmp, buffer);
+		tmp = ft_strjoin(tmp, buffer);
 	}
 	free(buffer);
 	close(fd);
@@ -102,45 +102,17 @@ int	ft_msgerror(int error)
 		ft_printf("  Sortie ou Collectible non atteignable !%s\n\n", END);
 		exit (1);
 	}
+	if (error == 3)
+	{
+		ft_printf("\n%s\t\t Error\n", RED);
+		ft_printf("  Une des images du jeu est erronée !%s\n\n", END);
+		exit (1);
+	}
 	return (0);
 }
 
-char	*ft_join(char *buffer, char *str)
+void	ft_put_image(t_startmlx *gplay, int i_img, int x, int y)
 {
-	char	*mstr;
-	int		i;
-	int		j;
-
-	if (!buffer)
-	{
-		buffer = (char *)malloc(sizeof(char) * 1);
-		if (!buffer)
-			return (NULL);
-		buffer[0] = '\0';
-	}
-	if (!str || !buffer)
-		return (NULL);
-	mstr = malloc(sizeof(char) * (ft_strlen(buffer) + ft_strlen(str) + 1));
-	if (!mstr)
-		return (NULL);
-	i = -1;
-	while (buffer[++i])
-		mstr[i] = buffer[i];
-	j = 0;
-	while (str[j])
-		mstr[i++] = str[j++];
-	mstr[i] = '\0';
-	free(buffer);
-	return (mstr);
-}
-
-void	ft_display(char **tab)
-{
-	int	i;
-
-	i = -1;
-	printf("\n\n");
-	while (tab[++i])
-		ft_printf("%s\n", tab[i]);
-	printf("\n\n");
+	mlx_put_image_to_window(gplay->mlx, gplay->mlx_win, gplay->img[i_img],
+		x * 64, y * 64);
 }
