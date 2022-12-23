@@ -1,5 +1,7 @@
 NAME			=	so_long
 
+NAME_BONUS		= 	so_long_bonus
+
 LIBFT			=	includes/libft/libft.a
 
 PRINTF			=	includes/ft_printf/libftprintf.a
@@ -7,20 +9,18 @@ PRINTF			=	includes/ft_printf/libftprintf.a
 SRCS			=	main.c miscft/utils.c miscft/mapcheck.c miscft/ft_pathfinding_rtbl.c \
 					miscft/pathfinding.c miscft/move.c miscft/gamemlxutils.c
 
+SRCS_BONUS			=	bonus/main_bonus.c bonus/miscft/utils_bonus.c bonus/miscft/mapcheck_bonus.c \
+					bonus/miscft/ft_pathfinding_rtbl_bonus.c \
+					bonus/miscft/pathfinding_bonus.c bonus/miscft/move_bonus.c bonus/miscft/gamemlxutils_bonus.c
+
 # Colors
 DEF_COLOR = \033[0;39m
-GRAY = \033[0;90m
-RED = \033[0;91m
 GREEN = \033[0;92m
-YELLOW = \033[0;93m
-BLUE = \033[0;94m
-MAGENTA = \033[0;95m
-CYAN = \033[0;96m
-WHITE = \033[0;97m
 PURPLE= \033[38;2;255;105;180m
-RESET= \033[0m
 
 OBJS			=	${SRCS:.c=.o}
+
+OBJS_BONUS		=	${SRCS_BONUS:.c=.o}
 
 MLX_FLAGS		=	-lm -lmlx -lXext -lX11
 
@@ -30,31 +30,54 @@ CFLAGS			=	-Wall -Werror -Wextra -g
 
 all				:	${NAME}
 
-$(NAME) : $(OBJS) ${OBJS_GNL}
-	@echo "${GREEN}========================${DEF_COLOR}"
-	@echo "${GREEN}===== MAKE ${PURPLE}LIBFT ⌛${DEF_COLOR}${GREEN}=====${DEF_COLOR}"
-	@echo "${GREEN}========================${DEF_COLOR}"
+$(NAME) : $(OBJS)
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}=== MAKE ${PURPLE}MANDATORY ⌛${DEF_COLOR}${GREEN}===${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}\n"
+	@sleep 1
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}===== MAKE ${PURPLE}LIBFT ⌛${DEF_COLOR}${GREEN}=====${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}\n"
 	@make -C includes/libft
-	@echo "${GREEN}=============================${DEF_COLOR}"
-	@echo "${GREEN}===== MAKE ${PURPLE}FT_PRINTF${DEF_COLOR} ⌛${GREEN} =====${DEF_COLOR}"
-	@echo "${GREEN}=============================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}=============================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}===== MAKE ${PURPLE}FT_PRINTF${DEF_COLOR} ⌛${GREEN} =====${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}=============================${DEF_COLOR}\n"
 	@make -C includes/ft_printf
-	@echo "${GREEN}==============================${DEF_COLOR}"
-	@echo "${GREEN}==== ALL IS ${PURPLE}COMPILATED${DEF_COLOR} ✅${GREEN} ====${DEF_COLOR}"
-	@echo "${GREEN}==============================${DEF_COLOR}"
-	cc $(OBJS) ${OBJS_GNL} mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -L. -lX11 ${LIBFT} ${PRINTF} -o $(NAME)
+	@echo "\t\t\t${GREEN}==============================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}==== ALL IS ${PURPLE}COMPILATED${DEF_COLOR} ✅${GREEN} ====${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}==============================${DEF_COLOR}"
+	cc $(OBJS) mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -L. -lX11 ${LIBFT} ${PRINTF} -o $(NAME)
+
+bonus			: ${OBJS_BONUS}
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}===== MAKE ${PURPLE}BONUS ⌛${DEF_COLOR}${GREEN}=====${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}\n"
+	@sleep 1
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}===== MAKE ${PURPLE}LIBFT ⌛${DEF_COLOR}${GREEN}=====${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}========================${DEF_COLOR}\n"
+	@make -C includes/libft
+	@echo "\t\t\t${GREEN}=============================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}===== MAKE ${PURPLE}FT_PRINTF${DEF_COLOR} ⌛${GREEN} =====${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}=============================${DEF_COLOR}\n"
+	@make -C includes/ft_printf
+	@echo "\t\t\t${GREEN}==============================${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}==== ALL IS ${PURPLE}COMPILATED${DEF_COLOR} ✅${GREEN} ====${DEF_COLOR}"
+	@echo "\t\t\t${GREEN}==============================${DEF_COLOR}"
+	cc ${OBJS_BONUS} mlx/libmlx.a mlx/libmlx_Linux.a -L. -lXext -L. -lX11 ${LIBFT} ${PRINTF} -o $(NAME_BONUS)
 
 clean			:
 					make clean -C includes/libft/
 					make clean -C includes/ft_printf/
 					rm -rf ${OBJS}
+					rm -rf ${OBJS_BONUS}
 
 fclean			:	clean
 					make fclean -C includes/libft/
 					make fclean -C includes/ft_printf/
 					rm -rf ${LIBFT}
 					rm -rf ${PRINTF}
-					rm -rf ${NAME}
+					rm -rf ${NAME} ${NAME_BONUS}
 
 re				:	fclean all
 
