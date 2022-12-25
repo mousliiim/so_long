@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/15 22:25:04 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/23 21:44:13 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/24 21:53:48 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_content_condition(char **map, t_map *game, int x, int y)
 			game->map_p++;
 		}
 		if (!((map[y][x] == '1') || map[y][x] == '0' || map[y][x] == 'P' ||
-			map[y][x] == 'E' || map[y][x] == 'C'))
+			map[y][x] == 'E' || map[y][x] == 'C' || map[y][x] == 'M'))
 		{
 			ft_freemap(game->map);
 			ft_msgerror(1);

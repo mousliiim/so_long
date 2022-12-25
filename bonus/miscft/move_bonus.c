@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 23:20:19 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/23 23:41:58 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/25 03:01:40 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	deal_key(int keysym, t_startmlx *gplay)
 		gplay->rand = 2;
 	else
 		gplay->rand = 1;
-	printf("La variable x est maintenant égale à %d\n", gplay->rand);
 	if (keysym == ESC)
 		ft_esc(gplay);
 	if (keysym == D)
@@ -47,7 +46,7 @@ int	ft_esc(t_startmlx *gplay)
 		gplay->map[gplay->exit[0]][gplay->exit[1]])
 		ft_printf("%s\tVous avez utiliser la sortie !%s\n\n", GREEN, END);
 	else
-		ft_printf("%s\t  Vous n'avez pas utiliser la sortie%s\n\n", RED, END);
+		ft_printf("%s\t  Vous n'avez pas utiliser la sortie%s\n", RED, END);
 	mlx_loop_end(gplay->mlx);
 	return (0);
 }
@@ -56,6 +55,12 @@ void	ft_move(t_startmlx *gplay, int m_x, int m_y, int op)
 {
 	if (gplay->map[gplay->start[0] + m_y][gplay->start[1] + m_x] != '1')
 	{
+		ft_printf("\t->Nombre de Pas : [ %s%d%s ]<-\n", GREEN, gplay->step, END);
+		if (gplay->map[gplay->start[0] + m_y][gplay->start[1] + m_x] == 'M')
+		{
+			ft_esc(gplay);
+			ft_printf("\t\t%sEn plus tu est mort 😢%s\n", RED, END);
+		}
 		if (gplay->map[gplay->start[0] + m_y][gplay->start[1] + m_x] == 'C' &&
 				gplay->coin != 0)
 		{
@@ -71,7 +76,6 @@ void	ft_move(t_startmlx *gplay, int m_x, int m_y, int op)
 		if (op == 0)
 			gplay->start[1] += (m_x + m_y);
 		gplay->step++;
-		ft_printf("\t->Nombre de Pas : [ %s%d%s ]<-\n", GREEN, gplay->step, END);
 	}
 	ft_fillmap(gplay);
 }
@@ -128,4 +132,6 @@ void	ft_put_image_window(t_startmlx *gplay, int y, int x)
 	}
 	if (gplay->map[y][x] == '0')
 		ft_put_image(gplay, 5, x, y);
+	if (gplay->map[y][x] == 'M')
+		ft_put_image(gplay, 1, x, y);
 }

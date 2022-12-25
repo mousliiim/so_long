@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/23 23:32:35 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/25 03:03:21 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	main(int argc, char **argv, char **env)
 	static t_map		game = {0};
 	static t_startmlx	gplay = {0};
 
-	gplay.rand = 2;
 	if (!env || !*env)
 		return (0);
 	if (argc == 2)

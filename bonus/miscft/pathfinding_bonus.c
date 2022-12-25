@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:21:39 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/23 23:22:54 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/25 05:36:15 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	ft_swapstruct(t_map *game, t_startmlx *gplay)
 	gplay->start[1] = game->start[1];
 	gplay->exit[0] = game->exit[0];
 	gplay->exit[1] = game->exit[1];
+	gplay->rand = 2;
 }
 
 void	ft_tab_fill_xpm(t_startmlx *gplay)
@@ -99,7 +100,6 @@ void	ft_tab_fill_xpm(t_startmlx *gplay)
 		gplay->img[j] = mlx_xpm_file_to_image(gplay->mlx, imgs[j], &r, &r);
 		if (!gplay->img[j])
 		{
-			printf("enculer: %s | %d\n", imgs[j], j);
 			ft_freemap(gplay->map);
 			while (++i < j)
 				mlx_destroy_image(gplay->mlx, gplay->img[i]);

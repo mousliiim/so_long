@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:49:32 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/23 23:18:55 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/24 22:07:51 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	ft_empty_t_map(t_map *game);
 void	ft_exit(t_startmlx *gplay, t_map *game);
 void	ft_put_image_window(t_startmlx *gplay, int y, int x);
 void	ft_put_image(t_startmlx *gplay, int i_img, int x, int y);
-int		ft_player_in_exit(t_startmlx *gplay);
 int		close_x(t_startmlx *gplay);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 01:08:16 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/22 04:01:58 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/25 02:40:17 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,4 @@ void	ft_exit(t_startmlx *gplay, t_map *game)
 	mlx_destroy_window(gplay->mlx, gplay->mlx_win);
 	mlx_destroy_display(gplay->mlx);
 	ft_empty_struct(gplay, game);
-}
-
-int	ft_player_in_exit(t_startmlx *gplay)
-{
-	if (gplay->coin == 0
-		&& gplay->map[gplay->start[0]][gplay->start[1]] ==
-		gplay->map[gplay->exit[0]][gplay->exit[1]])
-		return (0);
-	return (1);
 }
