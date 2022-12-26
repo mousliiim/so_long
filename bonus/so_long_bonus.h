@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:49:32 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/24 22:07:51 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/26 07:57:19 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ typedef struct s_startmlx
 	char	**map;
 	void	*mlx;
 	void	*mlx_win;
-	void	*img[6];
+	void	*img[7];
+	void	*counterimg[10];
 	size_t	size_x;
 	size_t	size_y;
 	int		step;
@@ -75,22 +76,20 @@ int		ft_pathfind(t_map *game, int pox, int poy, int *count);
 void	ft_pathvalid(t_map *game, char *mapname, t_startmlx *gplay);
 void	ft_beforepathfind(t_map *game, int pox, int poy, int *count);
 int		ft_check_if_exit(t_map *game);
-void	ft_check_path_right(t_map *game, int pox, int poy, int *count);
-void	ft_check_path_top(t_map *game, int pox, int poy, int *count);
-void	ft_check_path_bottom(t_map *game, int pox, int poy, int *count);
-void	ft_check_path_left(t_map *game, int pox, int poy, int *count);
 void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay);
 void	ft_fillmap(t_startmlx *gplay);
 void	ft_tab_fill_xpm(t_startmlx *gplay);
 int		ft_esc(t_startmlx *gplay);
 void	ft_move(t_startmlx *gplay, int m_x, int m_y, int op);
 int		deal_key(int keysym, t_startmlx *gplay);
-void	ft_swapstruct(t_map *game, t_startmlx *gplay);
 void	ft_empty_struct(t_startmlx *gplay, t_map *game);
 void	ft_empty_t_map(t_map *game);
 void	ft_exit(t_startmlx *gplay, t_map *game);
 void	ft_put_image_window(t_startmlx *gplay, int y, int x);
 void	ft_put_image(t_startmlx *gplay, int i_img, int x, int y);
 int		close_x(t_startmlx *gplay);
+void	ft_tab_fill_count_xpm(t_startmlx *gplay);
+void	ft_display_bonus_counter(t_startmlx *gplay, int nbr, int i);
+void	ft_display_player_in_exit(t_startmlx *gplay);
 
 #endif

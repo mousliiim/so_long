@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 23:20:19 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/25 03:01:40 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/26 07:46:52 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,28 @@ void	ft_fillmap(t_startmlx *gplay)
 {
 	int	x;
 	int	y;
+	int	xx;
+	int	yy;
 
 	x = 0;
-	y = 0;
+	y = -1;
 	if (gplay->coin == 0)
 				gplay->map[gplay->exit[0]][gplay->exit[1]] = 'E';
-	while (y < (int)gplay->size_y)
+	while (++y < (int)gplay->size_y)
 	{
 		x = 0;
 		while (x < (int)gplay->size_x)
 			ft_put_image_window(gplay, y, x++);
-	y++;
 	}
-	if (gplay->coin == 0
-		&& gplay->map[gplay->start[0]][gplay->start[1]] ==
-			gplay->map[gplay->exit[0]][gplay->exit[1]])
+	xx = -1;
+	yy = gplay->size_y - 1;
+	while (++yy < (int)gplay->size_y + 1)
 	{
-		ft_printf("%s\n\t      -> Felicitation ! <-%s\n", GREEN, END);
-		ft_printf("%s       -> Vous avez utiliser la sortie ! <-%s\n",
-			GREEN, END);
-		ft_printf("%s   -> Vous avez recuperer : %d Collectible(s) <-%s\n\n",
-			GREEN, gplay->needcoin, END);
-		mlx_loop_end(gplay->mlx);
+		while (++xx < (int)gplay->size_x)
+			ft_put_image(gplay, 5, xx, yy);
 	}
+	ft_display_bonus_counter(gplay, gplay->step, x - 1);
+	ft_display_player_in_exit(gplay);
 }
 
 void	ft_put_image_window(t_startmlx *gplay, int y, int x)
@@ -133,5 +132,5 @@ void	ft_put_image_window(t_startmlx *gplay, int y, int x)
 	if (gplay->map[y][x] == '0')
 		ft_put_image(gplay, 5, x, y);
 	if (gplay->map[y][x] == 'M')
-		ft_put_image(gplay, 1, x, y);
+		ft_put_image(gplay, 6, x, y);
 }
