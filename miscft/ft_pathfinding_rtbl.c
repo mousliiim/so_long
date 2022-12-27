@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 23:38:46 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/22 04:01:52 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:36:47 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,54 @@
  * incrémente la variable count qui serviras pour savoir si il est encore possib
  * -le d'ecrire des X pour voir si un chemin est possible dans la map.
 */
+
+static void	ft_check_path_right(t_map *game, int pox, int poy, int *count)
+{
+	if (game->map[poy][pox + 1] == '0' ||
+		game->map[poy][pox + 1] == 'C' ||
+		game->map[poy][pox + 1] == 'E')
+	{
+		game->map[poy][pox + 1] = 'X';
+		if (game->map[poy][pox + 1] == 'X')
+			(*count)++;
+	}
+}
+
+static void	ft_check_path_top(t_map *game, int pox, int poy, int *count)
+{
+	if (game->map[poy - 1][pox] == '0' ||
+		game->map[poy - 1][pox] == 'C' ||
+		game->map[poy - 1][pox] == 'E')
+	{
+		game->map[poy - 1][pox] = 'X';
+		if (game->map[poy - 1][pox] == 'X')
+			(*count)++;
+	}
+}
+
+static void	ft_check_path_bottom(t_map *game, int pox, int poy, int *count)
+{
+	if (game->map[poy + 1][pox] == '0' ||
+		game->map[poy + 1][pox] == 'C' ||
+		game->map[poy + 1][pox] == 'E')
+	{
+		game->map[poy + 1][pox] = 'X';
+		if (game->map[poy + 1][pox] == 'X')
+			(*count)++;
+	}
+}
+
+static void	ft_check_path_left(t_map *game, int pox, int poy, int *count)
+{
+	if (game->map[poy][pox - 1] == '0' ||
+		game->map[poy][pox - 1] == 'C' ||
+		game->map[poy][pox - 1] == 'E')
+	{
+		game->map[poy][pox - 1] = 'X';
+		if (game->map[poy][pox - 1] == 'X')
+			(*count)++;
+	}
+}
 
 int	ft_pathfind(t_map *game, int pox, int poy, int *count)
 {
@@ -42,52 +90,4 @@ int	ft_pathfind(t_map *game, int pox, int poy, int *count)
 		y++;
 	}
 	return (1);
-}
-
-void	ft_check_path_right(t_map *game, int pox, int poy, int *count)
-{
-	if (game->map[poy][pox + 1] == '0' ||
-		game->map[poy][pox + 1] == 'C' ||
-		game->map[poy][pox + 1] == 'E')
-	{
-		game->map[poy][pox + 1] = 'X';
-		if (game->map[poy][pox + 1] == 'X')
-			(*count)++;
-	}
-}
-
-void	ft_check_path_top(t_map *game, int pox, int poy, int *count)
-{
-	if (game->map[poy - 1][pox] == '0' ||
-		game->map[poy - 1][pox] == 'C' ||
-		game->map[poy - 1][pox] == 'E')
-	{
-		game->map[poy - 1][pox] = 'X';
-		if (game->map[poy - 1][pox] == 'X')
-			(*count)++;
-	}
-}
-
-void	ft_check_path_bottom(t_map *game, int pox, int poy, int *count)
-{
-	if (game->map[poy + 1][pox] == '0' ||
-		game->map[poy + 1][pox] == 'C' ||
-		game->map[poy + 1][pox] == 'E')
-	{
-		game->map[poy + 1][pox] = 'X';
-		if (game->map[poy + 1][pox] == 'X')
-			(*count)++;
-	}
-}
-
-void	ft_check_path_left(t_map *game, int pox, int poy, int *count)
-{
-	if (game->map[poy][pox - 1] == '0' ||
-		game->map[poy][pox - 1] == 'C' ||
-		game->map[poy][pox - 1] == 'E')
-	{
-		game->map[poy][pox - 1] = 'X';
-		if (game->map[poy][pox - 1] == 'X')
-			(*count)++;
-	}
 }

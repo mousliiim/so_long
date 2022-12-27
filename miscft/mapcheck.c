@@ -6,37 +6,13 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 02:05:06 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/22 20:03:40 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/26 22:28:58 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-char	**check_map(char *map, t_map *game)
-{
-	char	*tmp;
-
-	tmp = NULL;
-	tmp = ft_read_file(map);
-	if ((int)ft_strlen(tmp) == 0)
-	{
-		free(tmp);
-		ft_msgerror(1);
-	}
-	if (!tmp)
-		ft_msgerror(1);
-	ft_checkspacemap(tmp);
-	game->map = ft_split(tmp, '\n');
-	free(tmp);
-	game->size_x = ft_strlen(game->map[0]);
-	ft_checkmaprectangle(game, game->size_x);
-	game->checkmap = 1;
-	ft_check_border_map(game->map, game);
-	ft_check_content_map(game->map, game);
-	return (game->map);
-}
-
-void	ft_checkspacemap(char *tmp)
+static void	ft_checkspacemap(char *tmp)
 {
 	int	i;
 
@@ -53,7 +29,7 @@ void	ft_checkspacemap(char *tmp)
 	}
 }
 
-void	ft_checkmaprectangle(t_map *game, size_t len_first_line)
+static void	ft_checkmaprectangle(t_map *game, size_t len_first_line)
 {
 	int	i;
 
@@ -69,7 +45,7 @@ void	ft_checkmaprectangle(t_map *game, size_t len_first_line)
 	game->size_y = i;
 }
 
-void	ft_check_border_map(char **map, t_map *game)
+static void	ft_check_border_map(char **map, t_map *game)
 {
 	int	y;
 	int	x;
@@ -93,6 +69,29 @@ void	ft_check_border_map(char **map, t_map *game)
 		}
 		y++;
 	}
+}
+
+char	**check_map(char *map, t_map *game)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	tmp = ft_read_file(map);
+	if ((int)ft_strlen(tmp) == 0)
+	{
+		free(tmp);
+		ft_msgerror(1);
+	}
+	if (!tmp)
+		ft_msgerror(1);
+	ft_checkspacemap(tmp);
+	game->map = ft_split(tmp, '\n');
+	free(tmp);
+	game->size_x = ft_strlen(game->map[0]);
+	ft_checkmaprectangle(game, game->size_x);
+	ft_check_border_map(game->map, game);
+	ft_check_content_map(game->map, game);
+	return (game->map);
 }
 
 void	ft_pathvalid(t_map *game, char *mapname, t_startmlx *gplay)

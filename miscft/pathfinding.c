@@ -6,7 +6,7 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:21:39 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/22 04:02:04 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:58:09 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,7 @@ void	ft_beforepathfind(t_map *game, int pox, int poy, int *count)
 	}
 }
 
-void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay)
-{
-	ft_freemap(game->map);
-	ft_empty_t_map(game);
-	check_map(mapname, game);
-	ft_swapstruct(game, gplay);
-	gplay->mlx = mlx_init();
-	if (!gplay->mlx)
-		exit(0);
-	gplay->mlx_win = mlx_new_window(gplay->mlx, game->size_x * 64,
-			game->size_y * 64, "so_long");
-	if (!gplay->mlx_win)
-		exit(0);
-	ft_tab_fill_xpm(gplay);
-}
-
-void	ft_swapstruct(t_map *game, t_startmlx *gplay)
+static void	ft_swapstruct(t_map *game, t_startmlx *gplay)
 {
 	gplay->map = game->map;
 	gplay->size_x = game->size_x;
@@ -84,7 +68,7 @@ void	ft_swapstruct(t_map *game, t_startmlx *gplay)
 	gplay->exit[1] = game->exit[1];
 }
 
-void	ft_tab_fill_xpm(t_startmlx *gplay)
+static void	ft_tab_fill_xpm(t_startmlx *gplay)
 {
 	int			r;
 	int			j;
@@ -111,4 +95,20 @@ void	ft_tab_fill_xpm(t_startmlx *gplay)
 	}
 	while (gplay->img[++j])
 		gplay->nbrimg++;
+}
+
+void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay)
+{
+	ft_freemap(game->map);
+	ft_empty_t_map(game);
+	check_map(mapname, game);
+	ft_swapstruct(game, gplay);
+	gplay->mlx = mlx_init();
+	if (!gplay->mlx)
+		exit(0);
+	gplay->mlx_win = mlx_new_window(gplay->mlx, game->size_x * 64,
+			game->size_y * 64, "so_long");
+	if (!gplay->mlx_win)
+		exit(0);
+	ft_tab_fill_xpm(gplay);
 }

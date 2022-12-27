@@ -6,32 +6,11 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 23:21:39 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/26 07:56:48 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/26 23:38:35 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long_bonus.h"
-
-int	ft_check_if_exit(t_map *game)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 1;
-	while (y < (int)game->size_y)
-	{
-		x = 0;
-		while (game->map[y][x] && x < (int)game->size_x - 1)
-		{
-			if (game->map[y][x] == 'E' || game->map[y][x] == 'C')
-				return (1);
-			x++;
-		}
-		y++;
-	}
-	return (0);
-}
 
 void	ft_beforepathfind(t_map *game, int pox, int poy, int *count)
 {
@@ -69,24 +48,7 @@ static void	ft_swapstruct(t_map *game, t_startmlx *gplay)
 	gplay->rand = 2;
 }
 
-void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay)
-{
-	ft_freemap(game->map);
-	ft_empty_t_map(game);
-	check_map(mapname, game);
-	ft_swapstruct(game, gplay);
-	gplay->mlx = mlx_init();
-	if (!gplay->mlx)
-		exit(0);
-	gplay->mlx_win = mlx_new_window(gplay->mlx, game->size_x * 64,
-			game->size_y * 64 + 1 * 64, "so_long");
-	if (!gplay->mlx_win)
-		exit(0);
-	ft_tab_fill_count_xpm(gplay);
-	ft_tab_fill_xpm(gplay);
-}
-
-void ft_tab_fill_count_xpm(t_startmlx *gplay)
+static void	ft_tab_fill_count_xpm(t_startmlx *gplay)
 {
 	int			r;
 	int			j;
@@ -100,12 +62,12 @@ void ft_tab_fill_count_xpm(t_startmlx *gplay)
 	i = -1;
 	while (++j < 10)
 	{
-		gplay->counterimg[j] = mlx_xpm_file_to_image(gplay->mlx, imgs[j], &r, &r);
-		if (!gplay->counterimg[j])
+		gplay->imgct[j] = mlx_xpm_file_to_image(gplay->mlx, imgs[j], &r, &r);
+		if (!gplay->imgct[j])
 		{
 			ft_freemap(gplay->map);
 			while (++i < j)
-				mlx_destroy_image(gplay->mlx, gplay->counterimg[i]);
+				mlx_destroy_image(gplay->mlx, gplay->imgct[i]);
 			mlx_clear_window(gplay->mlx, gplay->mlx_win);
 			mlx_destroy_window(gplay->mlx, gplay->mlx_win);
 			mlx_destroy_display(gplay->mlx);
@@ -115,7 +77,7 @@ void ft_tab_fill_count_xpm(t_startmlx *gplay)
 	}
 }
 
-void	ft_tab_fill_xpm(t_startmlx *gplay)
+static void	ft_tab_fill_xpm(t_startmlx *gplay)
 {
 	int			r;
 	int			j;
@@ -131,22 +93,30 @@ void	ft_tab_fill_xpm(t_startmlx *gplay)
 		gplay->img[j] = mlx_xpm_file_to_image(gplay->mlx, imgs[j], &r, &r);
 		if (!gplay->img[j])
 		{
-			while (++i < 10 && gplay->counterimg[i])
+			while (++i < 10 && gplay->imgct[i])
 			{
-				mlx_destroy_image(gplay->mlx, gplay->counterimg[i]);
-				gplay->counterimg[i] = 0;
+				mlx_destroy_image(gplay->mlx, gplay->imgct[i]);
+				gplay->imgct[i] = 0;
 			}
 			i = -1;
-			ft_freemap(gplay->map);
-			while (++i < j)
-				mlx_destroy_image(gplay->mlx, gplay->img[i]);
-			mlx_clear_window(gplay->mlx, gplay->mlx_win);
-			mlx_destroy_window(gplay->mlx, gplay->mlx_win);
-			mlx_destroy_display(gplay->mlx);
-			free(gplay->mlx);
-			ft_msgerror(3);
+			ft_xpm_error(gplay, i, j);
 		}
 	}
-	while (gplay->img[++j])
-		gplay->nbrimg++;
+}
+
+void	ft_finalmap(t_map *game, char *mapname, t_startmlx *gplay)
+{
+	ft_freemap(game->map);
+	ft_empty_t_map(game);
+	check_map(mapname, game);
+	ft_swapstruct(game, gplay);
+	gplay->mlx = mlx_init();
+	if (!gplay->mlx)
+		exit(0);
+	gplay->mlx_win = mlx_new_window(gplay->mlx, game->size_x * 64,
+			game->size_y * 64 + 1 * 64, "so_long");
+	if (!gplay->mlx_win)
+		exit(0);
+	ft_tab_fill_count_xpm(gplay);
+	ft_tab_fill_xpm(gplay);
 }

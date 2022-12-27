@@ -10,8 +10,9 @@ SRCS			=	main.c miscft/utils.c miscft/mapcheck.c miscft/ft_pathfinding_rtbl.c \
 					miscft/pathfinding.c miscft/move.c miscft/gamemlxutils.c
 
 SRCS_BONUS			=	bonus/main_bonus.c bonus/miscft/utils_bonus.c bonus/miscft/mapcheck_bonus.c \
-					bonus/miscft/ft_pathfinding_rtbl_bonus.c \
-					bonus/miscft/pathfinding_bonus.c bonus/miscft/move_bonus.c bonus/miscft/gamemlxutils_bonus.c
+						bonus/miscft/ft_pathfinding_rtbl_bonus.c \
+						bonus/miscft/pathfinding_bonus.c bonus/miscft/move_bonus.c \
+						bonus/miscft/gamemlxutils_bonus.c bonus/miscft/utils_two_bonus.c \
 
 # Colors
 DEF_COLOR = \033[0;39m

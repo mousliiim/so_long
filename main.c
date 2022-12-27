@@ -6,13 +6,13 @@
 /*   By: mmourdal <mmourdal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 17:39:43 by mmourdal          #+#    #+#             */
-/*   Updated: 2022/12/26 00:16:21 by mmourdal         ###   ########.fr       */
+/*   Updated: 2022/12/27 00:56:53 by mmourdal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_check_arg(char *maparg)
+static int	ft_check_arg(char *maparg)
 {
 	if (!(ft_strcmp(maparg + (ft_strlen(maparg) - 4), ".ber") == 0)
 		|| ft_strcmp(maparg, ".ber") == 0)
@@ -36,7 +36,6 @@ void	ft_empty_t_map(t_map *game)
 	game->map = NULL;
 	game->size_x = 0;
 	game->size_y = 0;
-	game->checkmap = 0;
 	game->coin = 0;
 	game->map_e = 0;
 	game->map_p = 0;
